@@ -53,7 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
             removeButton.textContent = "×";
             removeButton.setAttribute("aria-label", `Unregister ${participant}`);
             removeButton.title = `Unregister ${participant}`;
-            removeButton.addEventListener("click", () => unregisterParticipant(name, participant));
+removeButton.addEventListener("click", async () => {
+  removeButton.disabled = true;
+  try {
+    await unregisterParticipant(name, participant);
+  } finally {
+    removeButton.disabled = false;
+  }
+});
             participantItem.appendChild(removeButton);
 
             participantsList.appendChild(participantItem);
